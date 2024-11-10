@@ -1,0 +1,44 @@
+button{
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+button:hover{
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.post-area{
+  margin-top: 10px;
+}
+
+.post{
+  padding: 5px;
+  cursor: pointer;
+}
+
+.post:hover{
+  background-color: cornflowerblue;
+}
+
+.box{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 10px;
+  min-height: 440px;
+}
+
+.box > h4{
+  text-align: center;
+  margin: 0px;
+  font-size: 18px;
+}
+
+.recent, .portfolio, .diary {
+  display: grid;
+  grid-template-rows: 1fr 11fr;
+}

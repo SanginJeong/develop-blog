@@ -1,0 +1,32 @@
+nav{
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: cornflowerblue;
+  position: relative;
+}
+
+.wrap {
+  text-align: center;
+}
+
+.container {
+  display: inline-block;
+  width: 70%;
+}
+
+nav > h2 {
+  cursor: pointer;
+}
+
+.login-btn{
+  position: absolute;
+  right: 10px;
+  color: cornflowerblue;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.login-btn:hover {
+  color: white;
+}

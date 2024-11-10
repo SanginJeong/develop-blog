@@ -1,0 +1,19 @@
+.todo{
+  /* width: 330px; */
+  height: 440px;
+  padding: 10px;
+}
+
+.timer{
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.done{
+  color: green;
+}
+
+.not-done{
+  color: red;
+}
