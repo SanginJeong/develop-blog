@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const userApi = require('./user.api');
 
-router.use('/user',(req,res)=>{
-  const {email, password} = req.body;
-  res.send(email, password);
-})
+router.use('/user', userApi);
 
 module.exports = router;
