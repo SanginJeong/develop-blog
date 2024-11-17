@@ -4,7 +4,6 @@ import menuList from './navMenuList';
 import { useNavigate } from 'react-router';
 const NavMenu = () => {
   const navigate = useNavigate();
-
   return (
     <div>
       <ul>

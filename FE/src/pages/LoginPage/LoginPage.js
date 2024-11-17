@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 import './LoginPage.style.css';
 import Error from '../../common/Error/Error';
-import api from '../../utils/api';
 import { useUserLoginQuery } from '../../hooks/useUserLogin';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [error, setError] = useState(null);
   
   const {mutate, isError, error} = useUserLoginQuery();
   
   const submitLogin = async (e) => {
     e.preventDefault();
-    // setError(null); // 기존 에러 초기화
     mutate({email, password});
-
+    
     };
 
   return (

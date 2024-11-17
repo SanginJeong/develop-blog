@@ -2,6 +2,7 @@
   /* width: 330px; */
   height: 440px;
   padding: 10px;
+  position: relative;
 }
 
 .timer{
@@ -15,5 +16,38 @@
 }
 
 .not-done{
+  color: red;
+}
+
+.append-btn{
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.task-contents{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-title {
+  color: black;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doned {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.done-btn {
+  color: greenyellow;
+}
+
+.delete-btn {
   color: red;
 }
