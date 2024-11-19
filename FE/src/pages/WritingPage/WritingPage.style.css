@@ -1,0 +1,91 @@
+.writing-page {
+  text-align: left;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.writing-title, .post-password {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.writing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+}
+
+.writing-select,
+.writing-input,
+.writing-textarea,
+.writing-file-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.writing-textarea {
+  resize: vertical;
+}
+
+.writing-btn-area{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.post-password-area{
+  padding: 20px 0px;
+}
+
+.image-preview {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-img {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.size-slider {
+  width: 50%;
+}
+
+.writing-submit-btn, .writing-cancel-btn {
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.writing-submit-btn:hover, .writing-cancel-btn:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,60 @@
+.posting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px; /* 약간 더 작은 라운드 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자도 좀 더 가볍게 */
+  padding: 15px; /* 패딩을 줄여서 크기 축소 */
+  margin: 10px 0; /* 카드 간의 간격 줄이기 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.posting:hover {
+  transform: translateY(-3px); /* 호버시 애니메이션을 조금 더 미세하게 */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+  flex: 8;
+  font-size: 0.95rem; /* 제목 폰트 크기 줄이기 */
+  font-weight: bold;
+  color: #333;
+}
+
+.post-time,
+.post-author {
+  flex: 2;
+  font-size: 0.95rem; /* 날짜와 작성자 폰트 크기 줄이기 */
+  text-align: center;
+  align-self: center;
+}
+
+.home-post-area{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.post-time,.home-post-time {
+  color: #888;
+}
+
+.post-author {
+  color: #007BFF;
+}
+
+.post-area{
+  margin-top: 10px;
+}
+
+.post{
+  padding: 5px;
+  cursor: pointer;
+}
+
+.home-post-area:hover{
+  background-color: cornflowerblue;
+}

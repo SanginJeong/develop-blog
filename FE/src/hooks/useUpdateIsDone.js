@@ -5,16 +5,16 @@ const updateIsDone = async({ _id} ) => {
   return await api.put(`/task/${_id}`);
 }
 
-export const useUpdateIsDoneQuery = () => {
+export const useUpdateIsDoneQuery = (setErrorMessage,setErrorModal) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn : updateIsDone,
-    onSuccess : (data) => {
-      console.log('업데이트 성공', data);
+    onSuccess : () => {
       queryClient.invalidateQueries(['getAuth']);
     },
     onError: (error) => {
-      console.log('업데이트 실패', error.message);
+      setErrorMessage(error.message);
+      setErrorModal(true); 
     }
   })
 }

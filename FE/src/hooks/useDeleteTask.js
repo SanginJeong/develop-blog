@@ -5,16 +5,16 @@ const deleteTask = async ({_id}) => {
   return await api.delete(`/task/${_id}`);
 }
 
-export const useDeleteTaskQuery = () => {
+export const useDeleteTaskQuery = (setErrorMessage, setErrorModal) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn : deleteTask,
-    onSuccess : (data) => {
-      console.log('삭제성공', data);
+    onSuccess : () => {
       queryClient.invalidateQueries(['getTaskList']);
     },
     onError : (error) => {
-      console.log('실패', error);
+      setErrorMessage(error.message);
+      setErrorModal(true);
     }
   })
 }

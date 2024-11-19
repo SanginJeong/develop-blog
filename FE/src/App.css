@@ -13,19 +13,6 @@ button:hover{
   color: white;
 }
 
-.post-area{
-  margin-top: 10px;
-}
-
-.post{
-  padding: 5px;
-  cursor: pointer;
-}
-
-.post:hover{
-  background-color: cornflowerblue;
-}
-
 .box{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 10px;
@@ -41,4 +28,9 @@ button:hover{
 .recent, .portfolio, .diary {
   display: grid;
   grid-template-rows: 1fr 11fr;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }

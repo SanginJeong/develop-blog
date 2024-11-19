@@ -15,7 +15,10 @@ const Diary = () => {
       <h4>개발일지</h4>
       <div className='post-area'>
         {post.map((post)=>(
-          <div className='post'>{post.title}</div>
+          <div className='home-post-area'>
+            <div className='post'>{post.title}</div>
+            <div className='home-post-time'>ddd</div>
+          </div>
         ))}
       </div>
     </div>

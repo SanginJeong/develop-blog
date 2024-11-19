@@ -9,15 +9,18 @@ import Error from '../../common/Error/Error';
 import { useDeleteTaskQuery } from '../../hooks/useDeleteTask';
 import { useUpdateIsDoneQuery } from '../../hooks/useUpdateIsDone';
 import TaskList from './TaskList';
+import ErrorModal from './ErrorModal/ErrorModal';
 const Todo = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isAppend, setIsAppend] = useState(null);
   const [taskId, setTaskId] = useState(null);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const {data: authStatus} = useGetAuthQuery();
   const {data: taskList, isLoading, isError, error} = useGetTaskListQuery();
-  const { mutate: deleteTask} = useDeleteTaskQuery();
-  const { mutate: updateIsDone } = useUpdateIsDoneQuery();
+  const { mutate: deleteTask} = useDeleteTaskQuery(setErrorMessage, setErrorModal);
+  const { mutate: updateIsDone } = useUpdateIsDoneQuery(setErrorMessage, setErrorModal);
 
   const handleAppend = () => {
     setIsOpenModal(true);
@@ -36,7 +39,12 @@ const Todo = () => {
   const handleUpdateTaskTitle = (_id) => {
     setIsAppend(false);
     setTaskId(_id);
-    setIsOpenModal(true);
+    if(authStatus.authenticated) {
+      setIsOpenModal(true);
+    } else {
+      setErrorModal(true);
+      setErrorMessage("권한이 없습니다.");
+    }
   }
 
   if(isLoading){
@@ -84,6 +92,10 @@ const Todo = () => {
         ? <TodoModal taskId={taskId} isAppend={isAppend} setIsAppend={setIsAppend} setIsOpenModal={setIsOpenModal}/>
         : null
       }
+
+      {errorModal ? <ErrorModal 
+        setErrorModal={setErrorModal} 
+        errorMessage={errorMessage}/> : null}
     </div>
   )
 }
