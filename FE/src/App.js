@@ -7,7 +7,9 @@ import ContentPage from './pages/ContentPage/ContentPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import WritingPage from './pages/WritingPage/WritingPage';
-import PostDetail from './components/Post/PostDetail';
+import PostDetailPage from './pages/PostDetailPage/PostDetailPage';
+import PostUpdatePage from './pages/PostUpdatePage/PostUpdatePage';
+
 function App() {
   return (
     <>
@@ -15,9 +17,12 @@ function App() {
         <Route path='/' element={<AppLayout/>}>
           <Route index element={<HomePage/>}/>
           <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/contents/:id'>
+          <Route path='/contents/:categoryId'>
             <Route index element={<ContentPage/>}/>
-            <Route path=':id' element={<PostDetail/>}/>
+            <Route path=':postId'>
+              <Route index element={<PostDetailPage/>}/>
+              <Route path='update' element={<PostUpdatePage/>}/>
+            </Route>
             <Route path='writing' element={<WritingPage/>}/>
           </Route>
         </Route>

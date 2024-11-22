@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import './AppLayout.style.css';
 import NavMenu from '../components/NavMenu/NavMenu';
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet, useNavigate, useLocation } from 'react-router';
 import { useGetAuthQuery } from '../hooks/useGetAuth';
 import { useQueryClient } from '@tanstack/react-query';
 
 
 const AppLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const {data:authStatus} = useGetAuthQuery();
   const queryClient = useQueryClient();
 
@@ -29,7 +30,7 @@ const AppLayout = () => {
         onClick={onClickLogOut}
         className='login-btn'>Log Out</button>
         : <button 
-        onClick={()=>{navigate('/login')}}
+        onClick={()=>{navigate('/login', {state : {prevURL : location.pathname}})}}
         className='login-btn'>Log in</button>}
       </nav>
 

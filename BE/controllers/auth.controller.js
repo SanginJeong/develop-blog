@@ -16,7 +16,10 @@ authController.authenticate = (req,res,next) => {
       if(error) {
         throw new Error("권한이 없습니다.");
       }
-      
+      req.userInfo = {
+        id: payload._id,
+        name: payload.name,
+      }
       next();
     })
     

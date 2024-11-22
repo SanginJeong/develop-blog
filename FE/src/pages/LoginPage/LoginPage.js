@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import './LoginPage.style.css';
-import Error from '../../common/Error/Error';
+import ErrorComponent from '../../common/ErrorComponent/ErrorComponent';
 import { useUserLoginQuery } from '../../hooks/useUserLogin';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
   const {mutate, isError, error} = useUserLoginQuery();
   
   const submitLogin = async (e) => {
@@ -20,7 +19,7 @@ const LoginPage = () => {
         <h2>로그인</h2>
         <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
         <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} />
-        {error ? <Error error = {error}/> : null}
+        {error ? <ErrorComponent error = {error}/> : null}
         <button type='submit'>Login</button>
       </form>
     </div>

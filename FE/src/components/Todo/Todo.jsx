@@ -5,7 +5,7 @@ import { useGetAuthQuery } from '../../hooks/useGetAuth';
 import TodoModal from './TodoModal/TodoModal';
 import { useGetTaskListQuery } from '../../hooks/useGetTaskList';
 import Spinner from '../../common/Spinner/Spinner';
-import Error from '../../common/Error/Error';
+import ErrorComponent from '../../common/ErrorComponent/ErrorComponent';
 import { useDeleteTaskQuery } from '../../hooks/useDeleteTask';
 import { useUpdateIsDoneQuery } from '../../hooks/useUpdateIsDone';
 import TaskList from './TaskList';
@@ -14,13 +14,13 @@ const Todo = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isAppend, setIsAppend] = useState(null);
   const [taskId, setTaskId] = useState(null);
-  const [errorModal, setErrorModal] = useState(false);
+  const [openErrorModal, setOpenErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const {data: authStatus} = useGetAuthQuery();
   const {data: taskList, isLoading, isError, error} = useGetTaskListQuery();
-  const { mutate: deleteTask} = useDeleteTaskQuery(setErrorMessage, setErrorModal);
-  const { mutate: updateIsDone } = useUpdateIsDoneQuery(setErrorMessage, setErrorModal);
+  const { mutate: deleteTask} = useDeleteTaskQuery(setErrorMessage, setOpenErrorModal);
+  const { mutate: updateIsDone } = useUpdateIsDoneQuery(setErrorMessage, setOpenErrorModal);
 
   const handleAppend = () => {
     setIsOpenModal(true);
@@ -42,7 +42,7 @@ const Todo = () => {
     if(authStatus.authenticated) {
       setIsOpenModal(true);
     } else {
-      setErrorModal(true);
+      setOpenErrorModal(true);
       setErrorMessage("권한이 없습니다.");
     }
   }
@@ -51,7 +51,7 @@ const Todo = () => {
     return <Spinner/>
   }
   if(isError) {
-    return <Error error={error}/>
+    return <ErrorComponent error={error}/>
   }
   
   return (
@@ -93,8 +93,8 @@ const Todo = () => {
         : null
       }
 
-      {errorModal ? <ErrorModal 
-        setErrorModal={setErrorModal} 
+      {openErrorModal ? <ErrorModal 
+        setOpenErrorModal={setOpenErrorModal} 
         errorMessage={errorMessage}/> : null}
     </div>
   )

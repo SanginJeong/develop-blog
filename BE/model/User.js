@@ -12,11 +12,22 @@ const userSchema = Schema({
   password : {
     type: String,
     required: true,
+  },
+  name : {
+    type: String,
+    required: true,
+  },
+  administrator : {
+    type: Boolean,
+    required: true,
   }
 },{timestamps:true});
 
 userSchema.methods.generateToken = function(){
-  const token = jwt.sign({_id:this._id}, JWT_SECRET_KEY);
+  const token = jwt.sign({
+    _id:this._id,
+    name: this.name,
+  }, JWT_SECRET_KEY);
   return token
 }
 

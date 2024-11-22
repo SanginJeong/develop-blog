@@ -16,6 +16,7 @@ async function run() {
     const hash = bcrypt.hashSync(password,salt);
 
     const result = await userCollection.insertOne({
+      name : '정상인',
       email: 'vheh7570',  // _id로 저장하려면 필드명을 _id로 지정
       password: hash
     });

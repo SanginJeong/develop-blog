@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { idToCategory } from '../../constant/idToCategory';
-import './WritingPage.style.css';
 import { useAppendPostQuery } from '../../hooks/useAppendPost';
 import Error from '../../common/ErrorComponent/ErrorComponent';
 import Spinner from '../../common/Spinner/Spinner';
+import { useGetPostDetailQuery } from '../../hooks/useGetPostDetail';
+import { useUpdatePostQuery } from '../../hooks/useUpdatePost';
+import ErrorComponent from '../../common/ErrorComponent/ErrorComponent';
 
-const WritingPage = () => {
-  const { categoryId } = useParams();
-  const [selectedCategory, setSelectedCategory] = useState(categoryId);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const {mutate: appendPost, isError, error, isLoading} = useAppendPostQuery();
+const PostUpdatePage = () => {
+  const { postId } = useParams();
+  const {data: postDetail,isLoading,isError,error} = useGetPostDetailQuery(postId);
+  const {mutate : updatePost} = useUpdatePostQuery();
+  const [selectedCategory, setSelectedCategory] = useState(postDetail.post.category);
+  const [title, setTitle] = useState(postDetail?.post.title);
+  const [content, setContent] = useState(postDetail?.post.content);
   const categoryList = Object.keys(idToCategory);
   const navigate = useNavigate();
   const location = useLocation();
   const {state} = location;
-
+  
   const handleChangeCategory = (e) => {
     setSelectedCategory(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    appendPost({category:selectedCategory, title,content});
+    updatePost({postId, title, content, category: selectedCategory});
     navigate(state.prevURL);
   };
 
@@ -31,6 +34,10 @@ const WritingPage = () => {
     return <Spinner/>
   }
 
+  if(isError) {
+    return <ErrorComponent erorr={error}/>
+  }
+  
   return (
     <div className="writing-page">
       <h2 className="writing-title">글쓰기</h2>
@@ -83,4 +90,4 @@ const WritingPage = () => {
   );
 };
 
-export default WritingPage;
+export default PostUpdatePage;

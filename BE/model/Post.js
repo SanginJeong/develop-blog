@@ -21,10 +21,6 @@ const postSchema = Schema({
   image : {
     type : String,
   },
-  postPassword : {
-    type : String,
-    required : true,
-  }
 }, {timestamps: true});
 
 const Post = mongoose.model("Post", postSchema);
