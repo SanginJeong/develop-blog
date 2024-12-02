@@ -65,7 +65,6 @@ taskController.removeTask = async(req, res) => {
 taskController.getTask = async(req, res) => {
   try {
     const taskList = await Task.find({});
-    console.log(taskList);
     
     res.status(200).json({status:"Ok",taskList});
   } catch (error) {

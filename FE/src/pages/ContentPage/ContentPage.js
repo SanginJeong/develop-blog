@@ -1,13 +1,14 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import './ContentPage.style.css';
 import Post from '../../components/Post/Post';
 import { idToCategory } from '../../constant/idToCategory';
-import { useGetPostListQuery } from '../../hooks/useGetPostList';
 import Spinner from '../../common/Spinner/Spinner';
-import {useGetAuthQuery} from '../../hooks/useGetAuth';
-import ErrorModal from '../../components/Todo/ErrorModal/ErrorModal';
+import ErrorModal from '../../common/ErrorModal/ErrorModal';
 import ErrorComponent from '../../common/ErrorComponent/ErrorComponent';
+import { useGetAuthQuery } from '../../hooks/useGetAuth';
+import { useGetPostListQuery } from '../../hooks/useGetPostList';
+import { useDeletePostQuery } from '../../hooks/useDeletePost';
 
 const ContentPage = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const ContentPage = () => {
 
   const {data, isLoading,error,isError} = useGetPostListQuery();
   const {data:authStatus} = useGetAuthQuery();
+  const {mutate: deletePost} = useDeletePostQuery();
   
   const postList = data?.newPostList?.filter((post)=>post.category === categoryId);
 
@@ -37,21 +39,31 @@ const ContentPage = () => {
   }
 
   
-  const handleDeletePost = () => {
+  const handleDeleteMode = () => {
     try {
       if(!authStatus.authenticated) {
         throw new Error("권한이 없습니다.")
       }
       setIsDeleteMode(true);
     } catch (error) {
-      
     }
   }
   
+  const handleDeletePost = () => {
+    deletePost(selectedPost);
+    setIsDeleteMode(false);
+  }
+
   const handleClickPostDetail = (postId) => {
     navigate(`/contents/${categoryId}/${postId}`,{state:{prevURL : location.pathname}})
   }
   
+
+  useEffect(()=>{
+    setIsDeleteMode(false);
+  },[location.pathname])
+
+
   if(isLoading){
     return <Spinner/>
   }
@@ -59,12 +71,13 @@ const ContentPage = () => {
     return <ErrorComponent error={error}/>
   }
   
+
   return (
     <div>
       <div className='category-area'>
-        <h2>{`${category}(${postList?.length})`}</h2>
+        <h2>{`${category}  (${postList?.length})`}</h2>
         <div>
-          <button onClick={handleDeletePost} className='post-btn delete'>삭제</button>
+          <button onClick={handleDeleteMode} className='post-btn delete'>삭제</button>
           <button onClick={handleAppendPost} className='post-btn append'>글쓰기</button>
         </div>
       </div>
@@ -75,15 +88,31 @@ const ContentPage = () => {
           : null}
         {postList?.map((post)=>(
           <Post 
-            id={post._id}
+            postId={post._id}
             title = {post.title} 
             time = {post.time} 
             author={post.author}
+            isFixed={post.isFixed}
             isDeleteMode = {isDeleteMode}
             setSelectedPost={setSelectedPost}
             handleClickPostDetail = {()=>{handleClickPostDetail(post._id)}}
             />
         ))}
+
+        {isDeleteMode
+          ? 
+            <div>
+              <button 
+                onClick={handleDeletePost}
+                className='post-btn'>완료
+              </button>
+              <button 
+                className='post-btn'
+                onClick={()=>{setIsDeleteMode(false)}}>취소
+              </button>
+            </div>
+          : null
+        }
       </div>
       { openErrorModal ? <ErrorModal errorMessage={errorMessage} setOpenErrorModal={setOpenErrorModal}/> : null }
     </div>

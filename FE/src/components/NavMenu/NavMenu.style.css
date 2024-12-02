@@ -1,16 +1,44 @@
-li{
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.nav-menu {
+  visibility: hidden;   /* 처음에는 메뉴를 숨깁니다 */
+  opacity: 0;           /* 처음에는 투명 상태 */
+  max-height: 0;        /* 처음에는 높이를 0으로 설정 */
+  overflow: hidden;     /* 넘치는 내용을 숨깁니다 */
+  transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s linear 0.3s; /* 열릴 때 애니메이션 */
 }
 
-ul{
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-  flex-wrap: wrap;
+.nav-menu.open {
+  visibility: visible;  /* 보이도록 설정 */
+  opacity: 1;           /* 불투명하게 설정 */
+  max-height: 500px;    /* 최대 높이를 설정 (여기서는 예시로 500px) */
+  transition: opacity 0.3s ease, max-height 0.3s ease; /* 열릴 때 애니메이션 */
 }
 
-ul button{
-  font-family: Georgia, 'Times New Roman', Times, serif;
+.nav-menu.close {
+  visibility: hidden;   /* 숨기기 */
+  opacity: 0;           /* 투명하게 */
+  max-height: 0;        /* 높이를 0으로 */
+  transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s linear 0.3s; /* 닫힐 때 애니메이션 */
+}
+
+.nav-menu-btn {
+  background: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.nav-menu-btn:hover{
+  background-color: cornflowerblue;
+  color: white;
+}
+
+@media screen and (max-width: 48rem) {
+  .nav-menu > ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    gap: 0;
+  }
 }

@@ -4,11 +4,10 @@ import { useAppendTaskQuery } from '../../../hooks/useAppendTask';
 import { useUpdateTaskTitleQuery } from '../../../hooks/useUpdateTaskTitle';
 import { useGetTaskListQuery } from '../../../hooks/useGetTaskList';
 
-const TodoModal = ({taskId,isAppend,setIsAppend,setIsOpenModal}) => {
+const TodoModal = ({taskId,isAppend,setIsAppend,setIsOpenModal,setErrorMessage,setOpenErrorModal}) => {
   // 만약 isAppend 가 true : 할 일 새로 추가하는 기능을 사용
   // 만약 isAppend 가 false : 할 일 제목 업데이트 하는 기능 사용
   const [title, setTitle] = useState('');
-  
   const {mutate : appendTask} = useAppendTaskQuery();
   const {mutate : updateTaskTitle} = useUpdateTaskTitleQuery();
   const {data : taskList} = useGetTaskListQuery();
@@ -30,10 +29,22 @@ const TodoModal = ({taskId,isAppend,setIsAppend,setIsOpenModal}) => {
   const submitTitle = (e) => {
     e.preventDefault();
     if(isAppend) {
-      appendTask({title});
+      appendTask({title},{
+        onError: (error) => {
+          console.log("errorr",error);
+          setErrorMessage(error.message);
+          setOpenErrorModal(true);
+        },
+      });
     } else {
-      updateTaskTitle({id : taskId, title})
+      updateTaskTitle({id : taskId, title},{
+        onError: (error) => {
+          setErrorMessage(error.message);
+          setOpenErrorModal(true);
+        },
+      })
     }
+    
     setIsOpenModal(false);
   }
 

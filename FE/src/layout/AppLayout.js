@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './AppLayout.style.css';
 import NavMenu from '../components/NavMenu/NavMenu';
 import { Outlet, useNavigate, useLocation } from 'react-router';
@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 
 const AppLayout = () => {
+  const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const {data:authStatus} = useGetAuthQuery();
@@ -24,6 +25,7 @@ const AppLayout = () => {
   return (
     <div>
       <nav>
+        <button onClick={() => setIsOpenMenuBar(!isOpenMenuBar)} className='hamburger-btn'><i class="fa-solid fa-bars"></i></button>
         <h2 onClick={()=>{navigate('/')}}>Developer Jeong</h2>
         {authStatus?.authenticated
         ? <button 
@@ -33,8 +35,8 @@ const AppLayout = () => {
         onClick={()=>{navigate('/login', {state : {prevURL : location.pathname}})}}
         className='login-btn'>Log in</button>}
       </nav>
-
-      <NavMenu/>
+      
+      <NavMenu isOpen = {isOpenMenuBar}/>
 
       <div className="wrap">
         <div className="container">

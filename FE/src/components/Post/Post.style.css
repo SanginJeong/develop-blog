@@ -68,3 +68,16 @@
   margin-right: 10px;
   cursor: pointer;
 }
+
+.checkbox-area{
+  padding: 10px;
+}
+
+.checkbox-label{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.post-fix{
+  color: yellow;
+}

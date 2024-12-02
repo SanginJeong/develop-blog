@@ -6,13 +6,24 @@ const postController = {};
 postController.getPost = async (req, res) => {
   try {
     const postList = await Post.find({});
-    const newPostList = postList.map((post)=>{
-      return {
-        ...post._doc,
-        time : new Date(post.createdAt).toISOString().split('T')[0],
-      }
-    }).sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt));
-    res.status(200).json({status:200, newPostList});
+    
+    const sortedPostList = postList
+      .map((post)=>{
+        return {
+          ...post._doc,
+          time : new Date(post.createdAt).toISOString().split('T')[0],
+        }})
+      .sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt));
+
+    const fixedPostList = [...sortedPostList]
+      .filter((post)=>post.isFixed === true);
+      
+    const notFixedPostList = [...sortedPostList]
+      .filter((post)=>post.isFixed === false);
+
+    const newPostList = fixedPostList.concat(notFixedPostList);
+    
+    res.status(200).json({status:200, sortedPostList, newPostList});
   } catch (error) {
     res.status(400).json({status:400, message: error.message});    
   }
@@ -44,7 +55,7 @@ postController.appendPost = async (req,res) => {
       throw new Error("카테고리를 선택하세요.");
     }
 
-    const newPost = new Post({title,content,category,author:name});
+    const newPost = new Post({title,content,category,author:name, isFixed: false});
     await newPost.save();
     res.status(200).json({status: "Ok", newPost}); 
   } catch (error) {
@@ -56,7 +67,6 @@ postController.updatePost = async (req,res) => {
   try {
     const {postId} = req.params;
     const {title, category,content} = req.body;
-    console.log(postId,title,category,content);
     
     if(!postId) {
       throw new Error("해당 게시물을 찾을 수 없습니다.");
@@ -77,14 +87,33 @@ postController.updatePost = async (req,res) => {
   }
 
 }
-// 글 삭제 요청 : User 에서 author를 찾고 그 사람이 관리자이면 and 글쓴이 본인이면 삭제,수정 가능
+
+postController.updateFixPost = async (req,res) => {
+  try {
+    const {postId} = req.params;
+    
+    if(!postId){
+      throw new Error("해당 게시물을 찾을 수 없습니다.");
+    }
+    
+    const post = await Post.findById(postId);
+    post.isFixed = !post.isFixed;
+    await post.save();
+    res.status(200).json({status:"Ok", post});
+  } catch (error) {
+    res.status(400).json({status:"Fail", message: error.message});
+  }
+}
+
 postController.deletePost = async (req,res) => {
   try {
-    const { idList } = req.body;
-    if(idList.length < 1) {
+    const { selectedPost } = req.params;
+    const ids = JSON.parse(selectedPost);
+    
+    if(ids.length < 1) {
       throw new Error("삭제할 게시물을 선택하세요.");
     }
-    const deletedPost = await Post.deleteMany({_id : {$in : idList}});
+    const deletedPost = await Post.deleteMany({_id : {$in : ids}});
     res.status(200).json({status:"Ok", deletedPost});
   } catch (error) {
     res.status(400).json({status:"Fail", message: error.message});

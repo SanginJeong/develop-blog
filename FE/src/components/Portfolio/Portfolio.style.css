@@ -1,0 +1,30 @@
+.portfolio-top{
+  text-align: center;
+}
+.portfolio-top > h4{
+
+  margin: 0;
+}
+
+.portfolio {
+  position: relative;
+}
+
+.portfolio-card{
+  display: flex;
+  /* white-space: nowrap; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  font-weight: bolder;
+}
+
+.portfolio-url{
+  transition: 0.3s;
+  padding: 10px;
+}
+
+.portfolio-url:hover{
+  background-color: cornflowerblue;
+  color: white;
+}

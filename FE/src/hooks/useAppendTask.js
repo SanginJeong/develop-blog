@@ -10,7 +10,7 @@ export const useAppendTaskQuery = () => {
 
   return useMutation({
     mutationFn : appendTask,
-    onSuccess : (data) => {
+    onSuccess : () => {
       queryClient.invalidateQueries(['getTaskList']);
     },
     onError : (error) => {

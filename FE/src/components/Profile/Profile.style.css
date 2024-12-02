@@ -4,3 +4,23 @@
   font-weight: bolder;
 }
 
+.profile{
+  position: relative;
+}
+
+.profile-update-btn{
+  background-color: cornflowerblue;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: white;
+  font-size: 12px;
+}
+
+.profile-update-btn:hover{
+  background-color: dodgerblue;
+}
+
+.editor-area{
+  margin-top: 20px;
+}

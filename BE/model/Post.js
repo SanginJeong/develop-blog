@@ -21,6 +21,10 @@ const postSchema = Schema({
   image : {
     type : String,
   },
+  isFixed : {
+    type : Boolean,
+    required : true,
+  }
 }, {timestamps: true});
 
 const Post = mongoose.model("Post", postSchema);

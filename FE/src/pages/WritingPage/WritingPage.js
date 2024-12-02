@@ -5,6 +5,9 @@ import './WritingPage.style.css';
 import { useAppendPostQuery } from '../../hooks/useAppendPost';
 import Error from '../../common/ErrorComponent/ErrorComponent';
 import Spinner from '../../common/Spinner/Spinner';
+import ReactQuill from 'react-quill';
+import { modules } from '../../constant/EditorModules';
+import 'react-quill/dist/quill.snow.css';
 
 const WritingPage = () => {
   const { categoryId } = useParams();
@@ -61,16 +64,7 @@ const WritingPage = () => {
         />
 
         <label htmlFor="content">내용</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="writing-textarea"
-          placeholder="내용을 입력하세요"
-          rows={10}
-          required
-        ></textarea>
-
+        <ReactQuill modules={modules} value={content} onChange={setContent} theme='snow' placeholder='내용을 입력하세요'/>
         <div>
           {isError ? <Error error={error}/> : null}
           <div className='writing-btn-area'>

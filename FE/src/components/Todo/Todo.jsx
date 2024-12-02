@@ -9,7 +9,8 @@ import ErrorComponent from '../../common/ErrorComponent/ErrorComponent';
 import { useDeleteTaskQuery } from '../../hooks/useDeleteTask';
 import { useUpdateIsDoneQuery } from '../../hooks/useUpdateIsDone';
 import TaskList from './TaskList';
-import ErrorModal from './ErrorModal/ErrorModal';
+import ErrorModal from '../../common/ErrorModal/ErrorModal';
+
 const Todo = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isAppend, setIsAppend] = useState(null);
@@ -46,6 +47,9 @@ const Todo = () => {
       setErrorMessage("권한이 없습니다.");
     }
   }
+
+  useEffect(()=>{console.log('ddd', openErrorModal);
+  },[openErrorModal]);
 
   if(isLoading){
     return <Spinner/>
@@ -88,14 +92,23 @@ const Todo = () => {
         </div>
       </div>
       
-      {isOpenModal 
-        ? <TodoModal taskId={taskId} isAppend={isAppend} setIsAppend={setIsAppend} setIsOpenModal={setIsOpenModal}/>
-        : null
+      {isOpenModal && 
+        <TodoModal 
+          taskId={taskId} 
+          isAppend={isAppend} 
+          setIsAppend={setIsAppend} 
+          setIsOpenModal={setIsOpenModal}
+          setOpenErrorModal={setOpenErrorModal}
+          setErrorMessage={setErrorMessage}
+          />
       }
 
-      {openErrorModal ? <ErrorModal 
-        setOpenErrorModal={setOpenErrorModal} 
-        errorMessage={errorMessage}/> : null}
+      {openErrorModal && 
+        <ErrorModal 
+          setOpenErrorModal={setOpenErrorModal} 
+          errorMessage={errorMessage}
+          />
+        }
     </div>
   )
 }

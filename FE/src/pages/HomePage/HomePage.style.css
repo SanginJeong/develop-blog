@@ -2,14 +2,25 @@
   text-align: left;
 }
 
+.home-first-line{
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  margin: 15px 0px;
+}
+
 .home-second-line{
   display: grid;
   grid-template-columns: 4fr 4fr 4fr;
   gap: 20px;
 }
 
-.home-first-line{
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  margin: 15px 0px;
+@media screen and (max-width: 48rem) {
+  .home-first-line{
+    display: flex;
+    flex-direction: column;
+  }
+  .home-second-line{
+    display: flex;
+    flex-direction: column;
+  }
 }

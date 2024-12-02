@@ -1,17 +1,14 @@
 .post-detail-title {
   border-bottom: 2px solid;
   padding: 15px 0px;
+  text-align: center;
 }
 
 .post-detail-content {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #444;
-  white-space: pre-line; /* 줄바꿈을 그대로 유지 */
-  word-wrap: break-word; /* 긴 단어가 줄을 넘지 않도록 처리 */
   padding: 1rem; /* 내용에 여백 추가 */
-  background-color: #f9f9f9; /* 배경색을 추가해서 구분 */
-  border-radius: 5px; /* 테두리 둥글게 처리 */
   margin-top: 1rem; /* 제목과 구분하기 위해 마진 추가 */
-  text-align: left;
+}
+
+.post-detail-btn-area {
+  text-align: center;
 }
