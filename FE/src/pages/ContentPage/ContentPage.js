@@ -101,7 +101,7 @@ const ContentPage = () => {
 
         {isDeleteMode
           ? 
-            <div>
+            <div className='post-btn-area'>
               <button 
                 onClick={handleDeletePost}
                 className='post-btn'>완료

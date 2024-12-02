@@ -16,6 +16,10 @@
   margin-left: 10px;
 }
 
+.post-btn-area {
+  text-align: center;
+}
+
 .post-btn:hover {
   background-color: dodgerblue;
 }

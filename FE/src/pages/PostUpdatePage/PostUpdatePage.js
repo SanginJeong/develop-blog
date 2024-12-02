@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { idToCategory } from '../../constant/idToCategory';
-import { useAppendPostQuery } from '../../hooks/useAppendPost';
 import Error from '../../common/ErrorComponent/ErrorComponent';
 import Spinner from '../../common/Spinner/Spinner';
 import { useGetPostDetailQuery } from '../../hooks/useGetPostDetail';
 import { useUpdatePostQuery } from '../../hooks/useUpdatePost';
 import ErrorComponent from '../../common/ErrorComponent/ErrorComponent';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { modules } from '../../constant/EditorModules';
 
 const PostUpdatePage = () => {
   const { postId } = useParams();
@@ -68,16 +70,7 @@ const PostUpdatePage = () => {
         />
 
         <label htmlFor="content">내용</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="writing-textarea"
-          placeholder="내용을 입력하세요"
-          rows={10}
-          required
-        ></textarea>
-
+        <ReactQuill modules={modules} theme='snow' value={content} onChange={setContent}/>
         <div>
           {isError ? <Error error={error}/> : null}
           <div className='writing-btn-area'>
